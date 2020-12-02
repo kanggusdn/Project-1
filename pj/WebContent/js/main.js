@@ -1,31 +1,12 @@
-$(function(){
-	var goPage;
-	var topPos;
+$(function() {
 	
-	$("nav li > a").click(function (e) {
+	$(".nav-tabs > li").click(function(e) {
 		e.preventDefault();
-		goPage= $(this).attr("href");
-		topPos=	$(goPage).offset().top;
-		$("html, body").stop().animate({ scrollTop: topPos }, 800);
-	});
-	
-	$(window).scroll(function () {
-		var t = $(this).scrollTop();
-		var index = 0;
-		$("nav li").removeClass("active");
-		if(t < ("#career").offset().top) {
-			$("nav li:eq(0)").addClass("active");
-			index = 0;
-		} else if (t < ("#portfolio").offset().top) {
-			$("nav li:eq(1)").addClass("active");
-			index = 1;
-		} else if (t < ("#contact").offset().top) {
-			$("nav li:eq(2)").addClass("active");
-			index = 2;
-		} else {
-			$("nav li:eq(3)").addClass("active");
-			index = 3;
-		}
-		$("nav li span").appendTo("nav li:eq(" + index + ") > a");
+		$(".nav-tabs > li >a").removeClass("active");
+		$(this).find("a").addClass("active");
+		$(".tab-info").addClass("d-none");
+		let num = $(this).index();
+		$(".tab-info").eq(num).removeClass("d-none");
+
 	});
 });
