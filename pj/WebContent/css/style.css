@@ -9,6 +9,12 @@ font-family: 'Noto Sans KR', sans-serif;
 @import "controller.css";
 @import "com.css";
 @import "card.css";
+
+/*goodsList.css*/
+
+@import "goods/goodsList.css";
+
+
 h1, h2, h3, h4, .navbar-brand {
 	font-family: 'Do Hyeon', sans-serif;
 	color: #4A148C;

@@ -9,4 +9,8 @@ $(function() {
 		$(".tab-info").eq(num).removeClass("d-none");
 
 	});
+	$("#loginModalJoinBtn").click(function(){
+		$('#loginModal').modal('hide');
+		$('#joinModal').modal('show');
+	});
 });
