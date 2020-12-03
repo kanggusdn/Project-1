@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- loginForm css -->
+<link rel="stylesheet" href="css/form/loginForm.css" />
+</head>
+<body>
+	<section id="loginFormArea">
+		<h1>로그인</h1>
+		<form action="loginPro.do" method="post">
+			<fieldset>
+				<table>
+					<tr>
+						<td class="td_left">
+							<label for="id">아이디 : </label>
+						</td>
+						<td class="td_right">
+							<input type="text" name="id" id="id">
+						</td>
+					</tr>
+					<tr>
+						<td class="td_left">
+							<label for="passwd">패스워드 : </label>
+						</td>
+						<td class="td_right">
+							<input type="password" name="passwd" id="passwd">
+						</td>
+					</tr>
+				</table>
+				<input type="submit" value="로그인" id="selectButton">
+				<input type="button" value="회원가입" style="margin-top: 10px" onclick = "location.href='join.do'">
+			</fieldset>
+		</form>
+	</section>
+</body>
+</html>

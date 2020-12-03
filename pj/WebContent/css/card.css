@@ -1,0 +1,11 @@
+@charset "UTF-8";
+.card__size{
+	width: 400px;
+	height: 350px;
+	padding: 20px;
+	margin-right: 20px;
+	
+}
+.card-img__cover{
+	padding-bottom: 20px;
+}

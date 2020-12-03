@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
+import action.JoinAction;
+import action.LoginAction;
 import vo.ActionForward;
 
 @WebServlet("*.do")
@@ -32,18 +35,36 @@ public class FrontController extends HttpServlet {
 		ActionForward forward = null;
 		Action action = null;
 		
-//		if(command.equals("/boardWriteForm.do")) {
-//			forward = new ActionForward();
-//			forward.setPath("/board/qna_board_write.jsp");
-//		} else if(command.equals("/boardWritePro.do")){
-//			action = new BoardWriteProAction();
-//			try {
-//			forward = action.execute(request, response);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		
-//		}
+		if(command.equals("/index.do")) {
+			forward = new ActionForward();
+			forward.setPath("/index.html");
+		} else if(command.equals("/loginPro.do")){
+			action = new LoginAction();
+			try {
+			forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/joinPro.do")){
+			action = new JoinAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/join.do")){
+			forward = new ActionForward();
+			forward.setPath("joinForm.jsp");
+			
+		} else if(command.equals("/login.do")){
+			forward = new ActionForward();
+			forward.setPath("loginForm.html");
+			
+		} else if(command.equals("/logout.do")){
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("index.do");
+		} 
 		
 		if(forward != null) {
 			if(forward.isRedirect()) {
