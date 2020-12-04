@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="vo.Member"%>
+<%
+	Member loginMember = (Member) session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,16 +51,21 @@
 					aria-haspopup="true" aria-expanded="false">컴퓨터부품</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-						<a class="dropdown-item" href="cpu.do">CPU</a> <a class="dropdown-item"
-							href="cooler.do">쿨러/튜닝</a> <a class="dropdown-item" href="board.do">메인보드</a> <a
-							class="dropdown-item" href="memory.do">메모리</a> <a class="dropdown-item"
-							href="card.do">그래픽카드</a> <a class="dropdown-item" href="ssd.do">SSd</a> <a
-							class="dropdown-item" href="hard.do">하드디스크</a> <a class="dropdown-item"
-							href="disc.do">외장HDD/SSD</a> <a class="dropdown-item" href="case.do">케이스</a>
-						<a class="dropdown-item" href="power.do">파워</a> <a class="dropdown-item"
-							href="keyborad.do">키보드</a> <a class="dropdown-item" href="mouse.do">마우스</a> <a
-							class="dropdown-item" href="odd.do">ODD</a> <a class="dropdown-item"
-							href="moniter.do">모니터</a> <a class="dropdown-item" href="soft.do">소프트웨어</a>
+						<a class="dropdown-item" href="goodsList.do?kind=cpu">CPU</a> <a
+							class="dropdown-item" href="goodsList.do?kind=cooler">쿨러/튜닝</a> <a
+							class="dropdown-item" href="goodsList.do?kind=board">메인보드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=memory">메모리</a> <a
+							class="dropdown-item" href="goodsList.do?kind=card">그래픽카드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=ssd">SSd</a> <a
+							class="dropdown-item" href="goodsList.do?kind=hard">하드디스크</a> <a
+							class="dropdown-item" href="goodsList.do?kind=disc">외장HDD/SSD</a> <a
+							class="dropdown-item" href="goodsList.do?kind=case">케이스</a> <a
+							class="dropdown-item" href="goodsList.do?kind=power">파워</a> <a
+							class="dropdown-item" href="goodsList.do?kind=keyboard">키보드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=mouse">마우스</a> <a
+							class="dropdown-item" href="goodsList.do?kind=odd">ODD</a> <a
+							class="dropdown-item" href="goodsList.do?kind=moniter">모니터</a> <a
+							class="dropdown-item" href="goodsList.do?kind=soft">소프트웨어</a>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
@@ -229,7 +241,9 @@
 	<!-- end -->
 	<!-- 2020-12-02 haesu -->
 	<div class="controller">
-
+		<%
+			if (loginMember == null) {
+		%>
 		<div class="controller__menu">
 			<button type="button" class="btn btn-primary btn-sm btn-block"
 				data-toggle="modal" data-target="#loginModal">로그인</button>
@@ -239,11 +253,30 @@
 			<button type="button" class="btn btn-primary btn-sm btn-block"
 				data-toggle="modal" data-target="#joinModal">회원가입</button>
 		</div>
+
+		<%
+			} else {
+		%>
+		<div class="controller__menu">
+			<h6> <%=loginMember.getId() %>님 환영합니다.</h6>
+		</div>
+		<div class="controller__menu">
+			<button type="button" class="btn btn-primary btn-sm btn-block" onclick="location.href='logout.do'">로그아웃</button>
+		</div>
+		<div class="controller__menu">
+			<button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal"
+
+		data-target="#profileModal">프로필 수정</button>
+		</div>
+		<%
+			}
+		%>
+
 		<div class="controller__menu">
 			<a class="btn btn-primary btn-sm btn-block " href="goodsListCart.do">장바구니</a>
 		</div>
 		<div class="controller__menu ">
-			<span>최근본상품</span>
+			<span class = "text-center">최근본상품</span>
 			<div></div>
 		</div>
 	</div>
@@ -284,6 +317,7 @@
 	<!-- end -->
 
 	<!-- Login Modal  2020-12-03 haesu-->
+
 	<div class="modal fade" id="loginModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -306,10 +340,11 @@
 							<label for="passwd">Password</label> <input type="password"
 								class="form-control" id="passwd" name="passwd">
 						</div>
-							<button type="button" class="btn btn-primary">로그인</button>
-							<button type="button" class="btn btn-primary" id="loginModalJoinBtn">회원가입</button>							
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">취소</button>
+						<button type="submit" class="btn btn-primary">로그인</button>
+						<button type="button" class="btn btn-primary"
+							id="loginModalJoinBtn">회원가입</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">취소</button>
 					</form>
 				</div>
 
@@ -317,7 +352,7 @@
 		</div>
 	</div>
 	<!-- Join Modal -->
-	
+
 	<div class="modal fade" id="joinModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -347,14 +382,16 @@
 								autocomplete="off" />
 						</div>
 						<div class="form-group">
-							<input type="text" id="sample4_postcode" placeholder="우편번호" class="form-control" name = "addr1" required="required"
-								autocomplete="off">
-							<input type="button" onclick="sample4_execDaumPostcode()"
-								value="우편번호 찾기" class="form-control"><input type="text"
-								id="sample4_roadAddress" placeholder="도로명주소" class="form-control" name = "addr2" required="required"
-								autocomplete="off"> 
-							 <input class="form-control" type="text" id="sample4_detailAddress" placeholder="상세주소" name = "addr3" required="required"
-								autocomplete="off">
+							<input type="text" id="sample4_postcode" placeholder="우편번호"
+								class="form-control" name="addr1" required="required"
+								autocomplete="off"> <input type="button"
+								onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
+								class="form-control"><input type="text"
+								id="sample4_roadAddress" placeholder="도로명주소"
+								class="form-control" name="addr2" required="required"
+								autocomplete="off"> <input class="form-control"
+								type="text" id="sample4_detailAddress" placeholder="상세주소"
+								name="addr3" required="required" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<input type="number" class="form-control" name="age"
@@ -376,18 +413,85 @@
 								placeholder="이메일" maxlength="20" required="required"
 								autocomplete="no" />
 						</div>
-
-
-						<!-- input타입 button은 value 값을 줘야함 -->
 						<button type="submit" class="btn btn-primary form-control">가입</button>
 					</form>
 				</div>
-
 			</div>
 		</div>
 	</div>
 	
+
 	
+
+ 
+
+<!-- 2020/12/04 강현우 프로필 수정 -->
+	<div class="modal fade" id="profileModal" data-backdrop="static"
+		data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">프로필 수정 페이지</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="joinPro.do" method="post">
+						<div class="form-group">
+							<input type="password" class="form-control" name="passwd"
+								placeholder="비밀번호" maxlength="20" required="required"
+								autocomplete="off" />
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="name"
+								placeholder="이름" maxlength="20" required="required"
+								autocomplete="off" />
+						</div>
+						<div class="form-group">
+							<input type="text" id="sample4_postcode" placeholder="우편번호"
+								class="form-control" name="addr1" required="required"
+								autocomplete="off"> <input type="button"
+								onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
+								class="form-control"><input type="text"
+								id="sample4_roadAddress" placeholder="도로명주소"
+								class="form-control" name="addr2" required="required"
+								autocomplete="off"> <input class="form-control"
+								type="text" id="sample4_detailAddress" placeholder="상세주소"
+								name="addr3" required="required" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" name="age"
+								placeholder="나이" maxlength="20" required="required"
+								autocomplete="off" />
+						</div>
+						<div class="form-group">
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-primary active"> <input
+									type="radio" class="d-none" name="gender" autocomplete="off"
+									value='M' checked="checked" />남자
+								</label> <label class="btn btn-primary"> <input type="radio"
+									class="d-none" name="gender" autocomplete="off" value='F' />여자
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" name="email"
+								placeholder="이메일" maxlength="20" required="required"
+								autocomplete="no" />
+						</div>
+						<button type="submit" class="btn btn-primary form-control">변경</button>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<!-- 프로필 수정 end -->
+
 
 	<!-- Optional JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -397,7 +501,8 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
 	<script src="js/header.js"></script>
 	<script src="js/main.js"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src = "js/addr.js"></script>
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="js/addr.js"></script>
 </body>
 </html>

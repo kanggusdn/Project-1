@@ -1,9 +1,32 @@
 @charset "UTF-8";
+.startLine{
+	margin:40px 0px;
+	border-top:2px dotted rgba(0,0,0,0.2);
+	border-bottom: 2px dotted rgba(0,0,0,0.2);
+}
+.startLine__text{
+	font-size: 50px; 
+	font-weight: 500;
+	color: tomato;
+}
 .card__size{
 	width: 400px;
 	height: 350px;
 	padding: 20px;
 	margin-right: 20px;
+	
+}
+.card__location{
+	position: absolute;
+	top:0;
+	left: 0;
+}
+.card__body-padding{
+	padding: 0;
+	margin: 0;
+}
+.goods__card-size{
+	margin: 20px;
 	
 }
 .card-img__cover{

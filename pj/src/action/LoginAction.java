@@ -17,7 +17,7 @@ public class LoginAction implements Action {
 		ActionForward forward = null;
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
-		System.out.println(id + passwd);
+
 		LoginService loginservice = new LoginService();
 		Member loginMember = loginservice.getLoginMember(id, passwd);
 		// 로그인이 성공되면 Member 객체가 넘어오고 실패하면 null이 넘어옴.
@@ -25,9 +25,9 @@ public class LoginAction implements Action {
 		if (loginMember != null) {
 			HttpSession session = request.getSession();
 			forward = new ActionForward();
+			session.setAttribute("loginMember", loginMember);
 			forward.setPath("index.do");
 			forward.setRedirect(true);
-			session.setAttribute("loginMember", loginMember);
 
 		} else {
 			response.setContentType("text/html;charset = UTF-8");

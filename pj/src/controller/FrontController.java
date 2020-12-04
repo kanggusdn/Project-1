@@ -38,11 +38,11 @@ public class FrontController extends HttpServlet {
 		
 		if(command.equals("/index.do")) {
 			forward = new ActionForward();
-			forward.setPath("/index.html");
+			forward.setPath("/index.jsp");
 		} else if(command.equals("/loginPro.do")){
 			action = new LoginAction();
 			try {
-			forward = action.execute(request, response);
+				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

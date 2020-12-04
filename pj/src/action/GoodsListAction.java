@@ -27,8 +27,8 @@ public class GoodsListAction implements Action {
 			}
 		}
 		GoodsListService goodsListService = new GoodsListService();
-		ArrayList<Goods> dogList = goodsListService.getGoodsList();
-		request.setAttribute("goodsList", dogList);
+		ArrayList<Goods> goodsList = goodsListService.getGoodsList();
+		request.setAttribute("goodsList", goodsList);
 		request.setAttribute("todayImageList", todayImageList);
 		ActionForward forward = new ActionForward("goodsList.jsp", false);
 		return forward;

@@ -14,7 +14,7 @@ public class GoodsListService {
 			GoodsDAO goodsDAO = GoodsDAO.getInstance();
 			Connection conn = getConnection();
 			goodsDAO.setConnection(conn);
-			ArrayList<Goods> goodsList = goodsDAO.selectDogList();
+			ArrayList<Goods> goodsList = goodsDAO.selectGoodsList();
 			close(conn);
 		return goodsList;
 	}

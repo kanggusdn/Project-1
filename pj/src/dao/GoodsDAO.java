@@ -30,13 +30,13 @@ public class GoodsDAO {
 		this.conn = conn;
 	}
 
-	public ArrayList<Goods> selectDogList() {
+	public ArrayList<Goods> selectGoodsList() {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Goods> goodsList = null;
 
 		try {
-			pstmt = conn.prepareStatement("select * from dog");
+			pstmt = conn.prepareStatement("select * from goods");
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -44,9 +44,8 @@ public class GoodsDAO {
 				// 객체를 생성하고
 
 				do {
-					goodsList.add(new Goods(rs.getInt("id"), rs.getString("kind"), rs.getInt("price"),
-							rs.getString("image"), rs.getString("country"), rs.getInt("height"), rs.getInt("weight"),
-							rs.getString("content"), rs.getInt("readcount")));
+					goodsList.add(new Goods(rs.getInt("id"), rs.getString("kind"), rs.getString("name"),
+							rs.getInt("price"), rs.getString("image")));
 					// 객체가 있다면 do를 해라
 				} while (rs.next());
 			}
@@ -66,16 +65,12 @@ public class GoodsDAO {
 		String sql = "";
 
 		try {
-			sql = "insert into dog values(null,?,?,?,?,?,?,?,?)";
+			sql = "insert into goods values(null,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, goods.getKind());
-			pstmt.setInt(2, goods.getPrice());
-			pstmt.setString(3, goods.getImage());
-			pstmt.setString(4, goods.getCountry());
-			pstmt.setInt(5, goods.getHeight());
-			pstmt.setInt(6, goods.getWeight());
-			pstmt.setString(7, goods.getContent());
-			pstmt.setInt(8, goods.getReadcount());
+			pstmt.setString(2, goods.getName());
+			pstmt.setInt(3, goods.getPrice());
+			pstmt.setString(4, goods.getImage());
 			insertCount = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -91,9 +86,9 @@ public class GoodsDAO {
 		PreparedStatement pstmt = null;
 		int updateCount = 0;
 		String sql = "";
-		
+
 		try {
-			sql = "update dog set readcount = readcount + 1 where id = ?";
+			sql = "update goods set readcount = readcount + 1 where id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			updateCount = pstmt.executeUpdate();
@@ -110,23 +105,15 @@ public class GoodsDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Goods goods = null;
-		
+
 		try {
-			pstmt = conn.prepareStatement("select * from dog where id =?");
+			pstmt = conn.prepareStatement("select * from goods where id =?");
 			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				goods = new Goods(
-				rs.getInt("id")
-				,rs.getString("kind")
-				,rs.getInt("price")
-				,rs.getString("image")
-				,rs.getString("country")
-				,rs.getInt("height")
-				,rs.getInt("weight")
-				,rs.getString("content")
-				,rs.getInt("readcount"));
+
+			if (rs.next()) {
+				goods = new Goods(rs.getInt("id"), rs.getString("kind"), rs.getString("name"), rs.getInt("price"),
+						rs.getString("image"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
