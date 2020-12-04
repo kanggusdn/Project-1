@@ -150,12 +150,12 @@ int cnt = 0;
 	<br>
 	<div class="d-flex justify-content-center ">
 		<%
-			for (int i = 0; i < goodsList.size(); i++) {
+			for (int i = 0; i < 3; i++) {
 		%>
 		<div>
 			<%
-				for (int j = 0; j <= 2; j++) {
-					cnt=i+j;
+				for (int j = 0; j <= 1; j++) {
+					
 			%>
 
 			<div class="card goods__card-size " style="width: 18rem;">
@@ -170,6 +170,7 @@ int cnt = 0;
 				</div>
 			</div>
 			<%
+			cnt++;
 				}
 			%>
 		</div>
