@@ -140,15 +140,13 @@ int cnt = 0;
 		</div>
 	</section>
 	<!-- help end -->
-	<%
-		if ((goodsList.size()) % 6 == 0) {
-	%>
+	<%for(int i = 0;i < goodsList.size();i++){ %>
 	<div class="startLine text-center">
-		<p class="startLine__text"></p>
+		<p class="startLine__text"><%=goodsList.get(i).getKind() %></p>
 	</div>
-	<%
-		}
-	%>
+	<%if(i == i){ %>
+	<% break;} %>
+	<%} %>
 	<br>
 	<div class="d-flex justify-content-center ">
 		<%
@@ -157,6 +155,7 @@ int cnt = 0;
 		<div>
 			<%
 				for (int j = 0; j <= 2; j++) {
+					cnt=i+j;
 			%>
 
 			<div class="card goods__card-size " style="width: 18rem;">
