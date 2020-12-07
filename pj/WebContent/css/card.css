@@ -29,6 +29,8 @@
 	margin: 20px;
 	
 }
-.card-img__cover{
-	padding-bottom: 20px;
+
+.card-img__size{
+	width: auto;
+	height: 17.9rem;	
 }

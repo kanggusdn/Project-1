@@ -14,7 +14,9 @@ public class GoodsListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		String kind = "cpu";
+		if(request.getParameter("kind") != null) kind = request.getParameter("kind");
+		ArrayList<Goods> goods = GoodsListService.getGoodsList(kind);
 		ArrayList<String> todayImageList = new ArrayList<String>();
 		Cookie[] cookieArray = request.getCookies();
 
@@ -27,7 +29,7 @@ public class GoodsListAction implements Action {
 			}
 		}
 		GoodsListService goodsListService = new GoodsListService();
-		ArrayList<Goods> goodsList = goodsListService.getGoodsList();
+		ArrayList<Goods> goodsList = goodsListService.getGoodsList(kind);
 		request.setAttribute("goodsList", goodsList);
 		request.setAttribute("todayImageList", todayImageList);
 		ActionForward forward = new ActionForward("goodsList.jsp", false);

@@ -12,7 +12,7 @@ import vo.Goods;
 
 public class GoodsDAO {
 	private static GoodsDAO boardDAO;
-	private Connection conn;
+	private static Connection conn;
 	private PreparedStatement pstmt;
 
 	private GoodsDAO() {
@@ -30,13 +30,14 @@ public class GoodsDAO {
 		this.conn = conn;
 	}
 
-	public ArrayList<Goods> selectGoodsList() {
+	public static ArrayList<Goods> selectGoodsList(String kind) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Goods> goodsList = null;
 
 		try {
-			pstmt = conn.prepareStatement("select * from goods");
+			pstmt = conn.prepareStatement("select * from goods where kind = ?");
+			pstmt.setString(1, kind);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -44,8 +45,8 @@ public class GoodsDAO {
 				// 객체를 생성하고
 
 				do {
-					goodsList.add(new Goods(rs.getInt("id"), rs.getString("kind"), rs.getString("name"),
-							rs.getInt("price"), rs.getString("image")));
+						goodsList.add(new Goods(rs.getInt("id"), rs.getString("kind"), rs.getString("name"),
+								rs.getInt("price"), rs.getString("image")));
 					// 객체가 있다면 do를 해라
 				} while (rs.next());
 			}
@@ -101,7 +102,7 @@ public class GoodsDAO {
 		return updateCount;
 	}
 
-	public Goods selectDog(int id) {
+	public Goods selectGoods(int id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Goods goods = null;

@@ -4,7 +4,8 @@
 <%@ page import="vo.Member, vo.Goods"%>
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
-ArrayList<Goods> goodsList = (ArrayList<Goods>) request.getAttribute("goodsList");
+	ArrayList<Goods> goodsList = (ArrayList<Goods>) request.getAttribute("goodsList");
+	
 int cnt = 0;
 %>
 <!DOCTYPE html>
@@ -31,7 +32,7 @@ int cnt = 0;
 <title>컴퓨터 홈 쇼핑 사이트</title>
 </head>
 <body>
-	<!-- 2020-12-02 haesu -->
+	<!-- 2020-12-07 haesu -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
 		id="header">
 
@@ -55,19 +56,19 @@ int cnt = 0;
 
 						<a class="dropdown-item" href="goodsList.do?kind=cpu">CPU</a> <a
 							class="dropdown-item" href="goodsList.do?kind=cooler">쿨러/튜닝</a> <a
-							class="dropdown-item" href="goodsList.do?kind=board">메인보드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=mainboard">메인보드</a> <a
 							class="dropdown-item" href="goodsList.do?kind=memory">메모리</a> <a
-							class="dropdown-item" href="goodsList.do?kind=card">그래픽카드</a> <a
-							class="dropdown-item" href="goodsList.do?kind=ssd">SSd</a> <a
-							class="dropdown-item" href="goodsList.do?kind=hard">하드디스크</a> <a
-							class="dropdown-item" href="goodsList.do?kind=disc">외장HDD/SSD</a>
+							class="dropdown-item" href="goodsList.do?kind=graphic">그래픽카드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=SSD">SSd</a> <a
+							class="dropdown-item" href="goodsList.do?kind=harddisk">하드디스크</a> <a
+							class="dropdown-item" href="goodsList.do?kind=sidedisk">외장HDD/SSD</a>
 						<a class="dropdown-item" href="goodsList.do?kind=case">케이스</a> <a
 							class="dropdown-item" href="goodsList.do?kind=power">파워</a> <a
 							class="dropdown-item" href="goodsList.do?kind=keyboard">키보드</a> <a
 							class="dropdown-item" href="goodsList.do?kind=mouse">마우스</a> <a
 							class="dropdown-item" href="goodsList.do?kind=odd">ODD</a> <a
 							class="dropdown-item" href="goodsList.do?kind=moniter">모니터</a> <a
-							class="dropdown-item" href="goodsList.do?kind=soft">소프트웨어</a>
+							class="dropdown-item" href="goodsList.do?kind=software">소프트웨어</a>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
@@ -106,24 +107,22 @@ int cnt = 0;
 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
 		</form>
 	</nav>
-	<!-- end -->
-
-	<!-- help  haesu  2020-12-02 -->
+	
 	<section class="container__size" id="home">
 		<div class=" w-100 ">
 			<div id="carouselExampleControls"
 				class="carousel slide w-100 container__center " data-ride="carousel">
 				<div class="carousel-inner w-100 ">
 					<div class="carousel-item active w-100">
-						<img src="img/picture1.jpg" class="d-block w-100" alt="..."
+						<img src="img/attack.jpg" class="d-block w-100" alt="..."
 							style="height: 400px">
 					</div>
 					<div class="carousel-item w-100">
-						<img src="img/picture2.jpg" class="d-block w-100" alt="..."
+						<img src="img/norefund.png" class="d-block w-100" alt="..."
 							style="height: 400px">
 					</div>
 					<div class="carousel-item w-100">
-						<img src="img/picture3.jpg" class="d-block w-100" alt="..."
+						<img src="img/come.png" class="d-block w-100" alt="..."
 							style="height: 400px">
 					</div>
 				</div>
@@ -139,48 +138,34 @@ int cnt = 0;
 			</div>
 		</div>
 	</section>
-	<!-- help end -->
-	<%for(int i = 0;i < goodsList.size();i++){ %>
 	<div class="startLine text-center">
-		<p class="startLine__text"><%=goodsList.get(i).getKind() %></p>
+		<p class="startLine__text"><%=goodsList.get(1).getKind() %></p>
 	</div>
-	<%if(i == i){ %>
-	<% break;} %>
-	<%} %>
 	<br>
-	<div class="d-flex justify-content-center ">
 		<%
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < goodsList.size(); i++) {
+				if(i%3 == 0) {
 		%>
-		<div>
-			<%
-				for (int j = 0; j <= 1; j++) {
-					
-			%>
-
+	<div class="card-deck">
+				<%} %>
 			<div class="card goods__card-size " style="width: 18rem;">
-				<img src="./img/<%=goodsList.get(cnt).getImage()%>"
-					class="card-img-top" alt="...">
+				<img src="./img/<%=goodsList.get(i).getImage()%>"
+					class="card-img-top card-img__size" alt="...">
 				<div class="card-body">
 					<p class="card-text">
 						상품명:
-						<%=goodsList.get(cnt).getName()%><br /> 가격:
-						<%=goodsList.get(cnt).getPrice()%><br />
+						<%=goodsList.get(i).getName()%><br /> 가격:
+						<%=goodsList.get(i).getPrice()%><br />
 					</p>
 				</div>
 			</div>
-			<%
-			cnt++;
-				}
-			%>
-		</div>
-		<%
-			}
-		%>
+			<%if(i % 3 == 2) { %>
 	</div>
+		<%} %>
+		<%if(i % 6 ==5) {%>
+		
+	<%break;}} %>
 
-
-	<!-- 2020-12-02 haesu -->
 	<div class="controller">
 		<%
 			if (loginMember == null) {
@@ -257,9 +242,7 @@ int cnt = 0;
 			</div>
 		</div>
 	</footer>
-	<!-- end -->
 
-	<!-- Login Modal  2020-12-03 haesu-->
 
 	<div class="modal fade" id="loginModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -366,7 +349,7 @@ int cnt = 0;
 			</div>
 		</div>
 	</div>
-
+	<!-- end -->
 
 
 

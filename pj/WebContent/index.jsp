@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="vo.Member"%>
+<%@ page import="vo.Member, vo.Goods"%>
+<%@ page import="java.util.HashMap,java.util.ArrayList"%>
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	ArrayList<Goods> todayImageList = (ArrayList<Goods>) request.getAttribute("todayImageList");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -53,19 +56,19 @@
 
 						<a class="dropdown-item" href="goodsList.do?kind=cpu">CPU</a> <a
 							class="dropdown-item" href="goodsList.do?kind=cooler">쿨러/튜닝</a> <a
-							class="dropdown-item" href="goodsList.do?kind=board">메인보드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=mainboard">메인보드</a> <a
 							class="dropdown-item" href="goodsList.do?kind=memory">메모리</a> <a
-							class="dropdown-item" href="goodsList.do?kind=card">그래픽카드</a> <a
-							class="dropdown-item" href="goodsList.do?kind=ssd">SSd</a> <a
-							class="dropdown-item" href="goodsList.do?kind=hard">하드디스크</a> <a
-							class="dropdown-item" href="goodsList.do?kind=disc">외장HDD/SSD</a> <a
-							class="dropdown-item" href="goodsList.do?kind=case">케이스</a> <a
+							class="dropdown-item" href="goodsList.do?kind=graphic">그래픽카드</a> <a
+							class="dropdown-item" href="goodsList.do?kind=SSD">SSd</a> <a
+							class="dropdown-item" href="goodsList.do?kind=harddisk">하드디스크</a> <a
+							class="dropdown-item" href="goodsList.do?kind=sidedisk">외장HDD/SSD</a>
+						<a class="dropdown-item" href="goodsList.do?kind=case">케이스</a> <a
 							class="dropdown-item" href="goodsList.do?kind=power">파워</a> <a
 							class="dropdown-item" href="goodsList.do?kind=keyboard">키보드</a> <a
 							class="dropdown-item" href="goodsList.do?kind=mouse">마우스</a> <a
 							class="dropdown-item" href="goodsList.do?kind=odd">ODD</a> <a
 							class="dropdown-item" href="goodsList.do?kind=moniter">모니터</a> <a
-							class="dropdown-item" href="goodsList.do?kind=soft">소프트웨어</a>
+							class="dropdown-item" href="goodsList.do?kind=software">소프트웨어</a>
 					</div></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#"
@@ -277,7 +280,11 @@
 		</div>
 		<div class="controller__menu ">
 			<span class = "text-center">최근본상품</span>
-			<div></div>
+			<%for(int i = 0; i < todayImageList.size();i++) { %>
+			<div>
+			<img src="images/<%=todayImageList.get(i).getImage() %>" id="todayImage" />
+			</div>
+			<%} %>
 		</div>
 	</div>
 
